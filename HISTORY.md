@@ -5,8 +5,6 @@ dev
 ---
 
 -   \[Short description of non-trivial change.\]
-- Requests Brotli compression, if either the `brotli` or `brotlicffi` package
-  is installed.
 
 **Dependencies**
 

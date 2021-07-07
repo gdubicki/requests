@@ -20,7 +20,6 @@ import tempfile
 import warnings
 import zipfile
 from collections import OrderedDict
-from urllib3.util import make_headers
 
 from .__version__ import __version__
 from . import certs
@@ -41,11 +40,6 @@ NETRC_FILES = ('.netrc', '_netrc')
 DEFAULT_CA_BUNDLE_PATH = certs.where()
 
 DEFAULT_PORTS = {'http': 80, 'https': 443}
-
-# Ensure that ', ' is used to preserve previous delimiter behavior.
-DEFAULT_ACCEPT_ENCODING = ", ".join(
-    re.split(r",\s*", make_headers(accept_encoding=True)["accept-encoding"])
-)
 
 
 if sys.platform == 'win32':
@@ -841,7 +835,7 @@ def default_headers():
     """
     return CaseInsensitiveDict({
         'User-Agent': default_user_agent(),
-        'Accept-Encoding': DEFAULT_ACCEPT_ENCODING,
+        'Accept-Encoding': ', '.join(('gzip', 'deflate')),
         'Accept': '*/*',
         'Connection': 'keep-alive',
     })
